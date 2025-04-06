@@ -1,0 +1,156 @@
+.hadith-entry {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.hadith-text {
+    margin-bottom: 0.5rem;
+    line-height: 1.8; /* Increased line height for better readability */
+    font-family: 'Noto Naskh Arabic', serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    direction: rtl; /* Right-to-left for Arabic text */
+    font-size: 1.1rem; /* Slightly larger font size */
+}
+
+.hadith-reference {
+    color: #6c757d;
+    font-size: 0.9rem;
+    direction: ltr; /* Left-to-right for reference text */
+}
+
+.rawy {
+    color: #0000cc;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.rawy:hover {
+    text-decoration: none;
+    color: #0000cc;
+}
+
+.matn {
+    color: #8B0000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.matn:hover {
+    text-decoration: none;
+    color: #8B0000;
+}
+
+/* Popover Styling */
+.popover {
+  width: 300px;
+  height: 400px; /* Fixed height */  
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* Include padding and borders in height */
+}
+
+/* Tab Selector */
+.tab-selector {
+  display: flex;
+  justify-content: space-between;
+  /* margin-bottom: 16px;*/
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+/* Tab Content */
+.tab-content {
+  flex: 1; /* Make it take up the remaining space */
+  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-pane {
+    display: block !important;
+}
+
+.tab-pane.active {
+  display: block;
+  flex: 1; /* Make the content take up remaining space within tab-content */
+  overflow-y: auto; /* Ensure scrolling within tab */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  padding-right: 16px; /* Add padding to ensure scrollbar doesn't overlap content */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+/* Details List Styling */
+.details-list {
+  padding-right: 8px;
+}
+
+.details-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.details-list::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 3px;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  word-wrap: break-word; /* Force long text to wrap within the available width */
+}
+
+.entry-name {
+  font-weight: bold;
+  color: #333;
+  align-content: center;
+}
+
+.entry-detail {
+  color: #666;
+  word-break: normal; /* Break long words to prevent overflow */
+  text-align: right;
+}
+
+/* Info & Edit Tab Styling */
+.info-block {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}

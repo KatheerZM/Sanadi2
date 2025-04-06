@@ -1,0 +1,1003 @@
+.maTooltip {
+  position: absolute
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+h1,
+h2 {
+  color: #2C3E50;
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+select, 
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+} 
+
+.normal-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.normal-button:hover {
+  background-color: #45a049;
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#graphContainer {
+  width: 100%;
+  height: 100%; 
+  /* Adjust height as necessary */
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* Allows absolute positioning for child elements within the container */
+  overflow: hidden;
+  /* Keeps all child elements within the bounds */
+}
+
+.zoom-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.zoom-controls button {
+  background-color: #337ab7;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px;
+}
+
+.zoom-controls button:hover {
+  background-color: #286090;
+}
+
+/* Styles for collapsible button */
+.normal-button[type="button"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  /* Added margin for spacing */
+}
+
+.normal-button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+/* Styles for the Narrator and Compiler Boxes */
+.narrator-basic,
+.compiler-minimal {
+  border: 1px solid black;
+  padding: 5px;
+  background-color: white;
+}
+
+.narrator-detailed,
+.compiler-fancy {
+  border: 3px double black;
+  padding: 10px;
+  background-color: lightgrey;
+  box-shadow: 2px 2px 5px #888888;
+}
+
+/* Optional: Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+
+  input,
+  select,
+  textarea,
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+/* Adjustments for Advanced Options container */
+#advancedOptions {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  background: #f9f9f9;
+}
+
+/* Popover Styling */
+.popover {
+  width: 300px;
+  height: 400px; /* Fixed height */  
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* Include padding and borders in height */
+}
+
+/* Tab Selector */
+.tab-selector {
+  display: flex;
+  justify-content: space-between;
+  /* margin-bottom: 16px;*/
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+/* Tab Content */
+.tab-content {
+  flex: 1; /* Make it take up the remaining space */
+  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  flex: 1; /* Make the content take up remaining space within tab-content */
+  overflow-y: auto; /* Ensure scrolling within tab */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  padding-right: 16px; /* Add padding to ensure scrollbar doesn't overlap content */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+/* Details List Styling */
+.details-list {
+  padding-right: 8px;
+}
+
+.details-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.details-list::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 3px;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  word-wrap: break-word; /* Force long text to wrap within the available width */
+}
+
+.entry-name {
+  font-weight: bold;
+  color: #333;
+  align-content: center;
+}
+
+.entry-detail {
+  color: #666;
+  word-break: normal; /* Break long words to prevent overflow */
+  text-align: right;
+}
+
+/* Info & Edit Tab Styling */
+.info-block {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+input {
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%; /* Ensure input doesn't cause horizontal scrolling */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn-save {
+  margin-top: 16px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%; /* Ensure button takes full width */
+}
+
+.btn-save:hover {
+  background-color: #0056b3;
+}
+
+/* Style the details container */
+.styled-details details {
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.styled-details details[open] {
+  background-color: #eef6ff; /* Change background when open */
+}
+
+/* Remove the default arrow for all browsers */
+.styled-details summary::-webkit-details-marker {
+  display: none; /* Chrome, Safari */
+}
+
+.styled-details summary::marker {
+  display: none; /* Firefox */
+}
+
+/* Remove arrow in IE/Edge */
+.styled-details summary {
+  list-style: none; /* This removes the default arrow in some browsers */
+}
+
+/* Custom summary styles */
+.styled-details summary {
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none; /* Remove default focus outline */
+  padding-left: 5px; /* Slight indent */
+  display: flex;
+  align-items: center;
+}
+
+/* Custom arrow */
+.styled-details summary::before {
+  content: '▼'; /* Custom arrow */
+  font-size: 14px;
+  margin-right: 10px;
+  color: #007bff;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.styled-details[open] summary::before {
+  content: '▲'; /* Change to up arrow when open */
+  transform: rotate(180deg); /* Rotate the arrow when the details are open */
+}
+
+/* Style the content inside details */
+.styled-details details p {
+  margin: 8px 0;
+  padding-left: 16px;
+  color: #333;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* Optional: Add subtle border to the content */
+.styled-details details p:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* Open details background */
+.styled-details details[open] {
+    background-color: #eef6ff; /* Light blue background when details are open */
+}
+
+/* Option styling */
+.option {
+    padding: 8px;
+    border: 2px solid transparent;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid #707070;
+
+}
+
+.option:hover {
+    background-color: #f0f0f0; /* Light hover effect */
+}
+
+.option.selected:hover {
+}
+
+/* Highlight the selected option */
+.option.selected {
+    border-color: #004085;     /* Slightly darker border */
+    border: 2px solid;
+    background-color: lavender;
+}
+
+.option.selected a {
+}
+
+.mxRubberband {
+    border: 3px dashed #000000; /* Dashed border for the selection rectangle */
+    background-color: rgba(0, 0, 255, 0.3); /* Light blue background inside the rectangle */
+    position: absolute;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #4A90E2;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.chains-textarea {
+  width: 100%;
+  height: 100%; 
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  font-family: monospace;
+  resize: none;
+}
+
+.primary-button {
+  background-color: #4A90E2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: #357ABD;
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#graphContainer {
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.direction-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.direction-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.direction-button:hover {
+  background-color: #ddd;
+}
+
+.direction-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.direction-toggle-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.direction-toggle-button:hover {
+  background-color: #ddd;
+}
+
+.direction-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.direction-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.spacing-controls {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.spacing-controls label {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.spacing-controls input[type="range"] {
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.spacing-controls span {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.container-buttons {
+  display: flex;
+  align-items: center; /* Vertically center the elements */
+  gap: 10px; /* Adjust the gap between elements */
+}
+
+.direction-button img {
+  width: 20px; /* Adjust size of the image as needed */
+  height: auto;
+}
+
+.spacing-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust spacing between elements inside the div */
+}
+
+.spacing-controls label {
+  margin-right: 5px;
+}
+
+.spacing-controls input {
+  width: 100px; /* Adjust the width of the sliders */
+}
+
+.spacing-controls span {
+  min-width: 30px; /* Ensure there's space for the value text */
+}
+
+
+
+
+.resize-handle {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc; /* Visible handle */
+  cursor: ns-resize; /* Cursor indicating vertical resizing */
+}
+
+
+
+.container-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Ensure form content does not interfere with graph expansion */
+form {
+    margin-bottom: 20px; /* Add margin to avoid overlap */
+}
+
+.chains-textarea { 
+  width: 100%; /* Take full width */
+  height: 100%; /* Adjust height */
+  padding: 10px; /* Add padding for better readability */
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  font-family: Arial, sans-serif; /* Clear font */
+  font-size: 16px; /* Easy-to-read font size */
+  line-height: 1.5; /* Improved line height for readability */
+  background-color: #f9f9f9; /* Slightly off-white background */
+  color: #333; /* Text color */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow inside */
+  resize: vertical; /* Allow vertical resizing */
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus state */
+}
+
+.chains-textarea:focus {
+  border-color: #007BFF; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow on focus */
+  background-color: #fff; /* Slightly change the background on focus */
+}
+
+.cm-comment { 
+  color: green !important; 
+  font-style: bold;
+}
+.cm-js-code { 
+  color: red !important; 
+  font-style: bold; 
+}
+.cm-color-setter { 
+  color: blue !important; 
+  font-style: bold;
+  text-decoration: underline;
+}
+.cm-connection { 
+  color: black !important; 
+  font-style: bold !important; 
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: palegreen;
+}
+.cm-name { 
+  color: blue !important; 
+  font-style: bold;
+}
+.cm-nameError { 
+  color: black !important;
+  text-decoration: underline wavy red; /* Wavy underline */
+}
+.cm-prophet { 
+  color: green !important; 
+  font-style: bold;
+}
+
+.CodeMirror {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5; 
+  height: 100%;
+}
+
+/* Style for narrator IDs (numbers) */
+.cm-number {
+  color: #FF4136;         /* Vivid red for easy identification */
+}
+
+/* Style for attributes (e.g., grade, level) */
+.cm-attribute {
+  color: #2ECC40;         /* Green to differentiate from keyword and numbers */
+  font-style: italic;
+}
+
+/* Style for string values (e.g., "Thiqah") */
+.cm-string {
+  color: #B10DC9;         /* Purple to make quoted values distinct */
+}
+
+/* Style for separators (e.g., commas) */
+.cm-separator {
+  color: #AAAAAA;         /* Light gray for subtle separation */
+}
+
+/* Style for colons (operators) */
+.cm-operator {
+  color: #FF851B;         /* Orange to highlight the division in the definition */
+  font-weight: bold;
+}
+
+#grade-level option[value="1"] { color: darkgreen; }
+#grade-level option[value="2"] { color: darkgreen; }
+#grade-level option[value="3"] { color: lightgreen; }
+#grade-level option[value="4"] { color: burlywood; }
+#grade-level option[value="5"] { color: burlywood; }
+#grade-level option[value="6"] { color: darkorange; }
+#grade-level option[value="7"] { color: darkorange; }
+#grade-level option[value="8"] { color: darkred; }
+#grade-level option[value="9"] { color: darkred; } 
+
+.toggle-container {
+  display: flex;
+  align-items: center; /* Vertically centers label and toggle */
+  gap: 10px; /* Adjust spacing between label and toggle */
+}
+
+#featureToggle {
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  background-color: #ccc;
+  outline: none;
+  cursor: pointer;
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+#featureToggle:checked {
+  background-color: #007BFF;
+}
+
+#featureToggle:after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: white;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+#featureToggle:checked:after {
+  left: 21px;
+}
+
+
+/* Floating form container */
+.container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.collapsible-section {
+    display: none; /* Hidden by default */
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    overflow: hidden;
+}
+
+#displayGraph {
+  width: 100%;
+  length: 100%;
+} 
+
+.lm_controls .lm_popout { display: none; };
+
+.CodeMirror-lines {
+  border-bottom: 1px solid black;
+}
+
+/* Floating Button Style */
+.floating-settings-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #007BFF; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure it stays on top */
+}
+.floating-settings-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Floating Button Style */
+.floating-refresh-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure it stays on top */
+}
+.floating-refresh-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.lm_content {
+  background-color: white;
+}
+
+.lm_tab {
+    width: 150px; /* Set the desired width */
+}
+
+.toolkit-container {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+
+.container-buttons, .button-group, .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* Ensure label and button stay close */
+.direction-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-label {
+  font-size: 0.9rem;
+}
+
+.direction-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.spacing-controls label {
+  font-size: 0.9rem;
+  flex: 1 1 100px;
+}
+
+.spacing-controls input {
+  flex: 1 1 auto;
+  min-width: 50px;
+  margin-top: 0.25rem;
+}
+
+.primary-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  flex: 1 1 auto;
+}
+
+.primary-button:hover {
+  background-color: #0056b3;
+}
+
+/* Slider-style checkboxes */
+.switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.switch-label {
+  font-size: 0.9rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.color-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  max-width: 200px; /* Limits overall width of color picker group */
+}
+
+.color-picker-label {
+  font-size: 0.9rem;
+  flex-shrink: 0; /* Prevents label from shrinking */
+}
+
+.color-picker {
+  height: 45px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#colorPicker {
+  width: 40px; /* Fixed width for the color picker box */
+  height: 30px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff77; /* Can be any color or gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Ensure it is above all other content */
+}
+
+/* Container for spinner and message */
+.loading-container {
+  text-align: center;
+}
+
+/* Loading animation (spinner) */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+/* Loading message box */
+.loading-message {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

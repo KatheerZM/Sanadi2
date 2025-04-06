@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadith Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+    <script src="load_data.js"></script>
+    <script src="narrator_recognition.js?v=2"></script> 
+    <script src="name_recognition.js"></script> 
+    <script src="text_to_object.js"></script> 
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Hadith Search</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="input-group mb-4">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Enter search term..." value="ذُّبَابُ by Ibn Ajlaan > Sa'eed al-Maqbiri in ahmad; ذُّبَابُ by Ibn Ajlaan > Sa'eed al-Maqbiri in abudawud">
+                    <button class="btn btn-primary" id="searchButton" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm d-none" id="searchSpinner" role="status"></span>
+                        <span id="searchButtonText">Loading...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top pagination -->
+        <div class="pagination-controls mb-4 text-center d-none">
+            <div class="d-flex justify-content-center align-items-center gap-3">
+                <button class="btn btn-outline-secondary" id="prevPageTop">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <select class="form-select w-auto" id="pageSelectTop">
+                    <option value="0">Page 1</option>
+                </select>
+                <button class="btn btn-outline-secondary" id="nextPageTop">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="results" class="mt-4">
+            <!-- Results will be displayed here -->
+        </div>
+
+        <!-- Bottom pagination -->
+        <div class="pagination-controls mt-4 text-center d-none">
+            <div class="d-flex justify-content-center align-items-center gap-3">
+                <button class="btn btn-outline-secondary" id="prevPageBottom">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <select class="form-select w-auto" id="pageSelectBottom">
+                    <option value="0">Page 1</option>
+                </select>
+                <button class="btn btn-outline-secondary" id="nextPageBottom">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        loadJSONFiles();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

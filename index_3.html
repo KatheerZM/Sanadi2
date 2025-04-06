@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sanadi</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+ 
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js">
+	</script>
+
+	<script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
+
+	<link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css" />
+
+	
+	<link rel="stylesheet" href="style.css">
+	<script src="mxClient.min.js"></script>
+	<script type="text/javascript" src="vis-network.min.js"></script>
+	<script type="text/javascript" src="viz-standalone.js"></script>
+	<script src="name_recognition.js?v=2.0"></script>
+	<script src="text_to_object.js?v=2.0"></script>
+	<script src="object_to_graph.js?v=2.0"></script>
+	<script src="graph_to_diagram.js?v=2.0"></script>
+	<script src="narrator_recognition.js?v=2.0"></script>
+	<script src="graph_maker.js?v=2.0"></script> 
+	<script src="text_editor.js?v=2.0"></script>  
+	<script src="save_and_load.js?v=2.0"></script>   
+	<script src="load_data.js?v=2.0"></script>   
+
+</head>
+
+<body>
+
+	<div id="layoutContainer" style="width: 100vw; height: 100vh;"></div>
+
+	<!-- Floating Button -->
+	<button class="floating-settings-button" id="floating-tools-button" onclick="openSettings()">Tools</button> 
+
+	<section style="display: none;" > 
+		<div id="inputSection" class="">
+
+			<form id="graphForm"> 
+				<div style="color: red;" id="chainsErrorMessage"></div>
+				<button type="submit" class="primary-button">Update Graph</button>
+
+
+				<div style="display: none"> 
+				<label for="node_separation">Node Separation:</label>
+				<input type="number" id="node_separation" name="node_separation" min="0" value="0.8" max="5" step="0.01" required>
+				<label for="rank_separation">Rank Separation:</label>
+				<input type="number" id="rank_separation" name="rank_separation" min="0" value="2.5" max="5" step="0.01" required> 
+
+					<label for="direction">Direction:</label>
+					<select id="direction" name="direction" required>
+						<option value="LR">Left to Right (LR)</option>
+						<option value="RL">Right to Left (RL)</option>
+						<option value="TB">Top to Bottom (TB)</option>
+						<option value="BT">Bottom to Top (BT)</option>
+					</select>
+					<!-- Collapsible Menu for Advanced Options -->
+					<button type="button" class="normal-button" onclick="toggleMenu()">Advanced Style Options</button>
+					<button type="submit" class="normal-button">Update Graph</button>
+					<div id="advancedOptions" style="display: none;">
+						<label for="narratorBoxStyle">Narrator Box Style:</label>
+						<input type="text" id="narratorBoxStyle" name="narratorBoxStyle" value="shape=rectangle;fillColor=white;strokeColor=black;fontColor=black;fontSize=17;whiteSpace=wrap;spacing=5;" required>
+						<label for="narratorBoxShape">Narrator Box Shape:</label>
+						<input type="text" id="narratorBoxShape" name="narratorBoxShape" value="width='180' height='50'" required>
+						<label for="compilerBoxStyle">Compiler Box Style:</label>
+						<input type="text" id="compilerBoxStyle" name="compilerBoxStyle" value="shape=rectangle;fillColor=lightblue;strokeColor=blue;fontSize=17;fontColor=black;spacing=5;" required>
+						<label for="compilerBoxShape">Compiler Box Shape:</label>
+						<input type="text" id="compilerBoxShape" name="compilerBoxShape" value="width='160' height='40'" required> Show Matn on Graph: <input type="checkbox" id="showMatn" style="width: 20px" name="showMatn" checked>
+						<label for="matnBoxStyle">Matn Box Style:</label>
+						<input type="text" style="align: left;" id="matnBoxStyle" name="matnBoxStyle" value="shape=rectangle;fillColor=white;strokeColor=none;fontColor=black;fontSize=24;whiteSpace=wrap;" required>
+						<label for="matnBoxShape">Matn Box Shape:</label>
+						<input type="text" id="matnBoxShape" name="matnBoxShape" value="width='180' height='50'" required>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<script src="layout_scripts.js"></script>  
+
+	<script>
+		let firstRun = true;
+		let container;
+		let graph;
+
+
+
+		myLayout.on('initialised', () => {
+			container = document.getElementById('graphContainer');
+			// Creates the graph inside the given container
+			graph = new mxGraph(container);
+			// Store graph in container for easy access in zoom functions
+			container.graph = graph;
+
+			/*
+			const directions = ['LR', 'TB', 'RL', 'BT'];
+			const icons = ['icons/tree-lr.png', 'icons/tree-tb.png', 'icons/tree-rl.png', 'icons/tree-bt.png'];
+			let currentDirectionIndex = 0;   
+			
+			document.getElementById('directionToggle').addEventListener('click', function() {
+					currentDirectionIndex = (currentDirectionIndex + 1) % directions.length;
+					document.getElementById('directionIcon').src = icons[currentDirectionIndex];
+
+					// Set the direction value in your form (if needed)
+					document.getElementById('direction').value = directions[currentDirectionIndex];
+					updateFunction();
+					// Optionally call the update graph function here if you want the graph to update immediately:
+					// updateFunction(null, true);
+			}); 
+*/
+
+			/*
+			rankSeparationInput.addEventListener('input', function() {
+					rankFormValue.value = rankSeparationInput.value;
+					respaceWithoutUpdate(directions[currentDirectionIndex], nodeFormValue.value, rankFormValue.value); 
+					// Optionally, update the graph here:
+					// updateFunction(null, true);
+			}); 
+			nodeSeparationInput.addEventListener('input', function() { 
+					nodeFormValue.value = nodeSeparationInput.value;
+					respaceWithoutUpdate(directions[currentDirectionIndex], nodeFormValue.value, rankFormValue.value); 
+					// Optionally, update the graph here:
+					// updateFunction(null, true);
+			}); 
+			*/    
+
+			const graphContainer = document.getElementById('graphContainer');
+
+			document.getElementById('graphForm').onsubmit = updateFunction;
+
+
+				const textarea = document.getElementById('myTextarea');
+				const output = document.getElementById('output');
+
+			defaultText = `Yahya ibn Yahya al-Tamimi > Malik (18197) {level=2} > Muhammad ibn Yahya ibn Habban > al-A'raj > Abu Hurairah > Prophet
+	Abu Kuraib & Ibn Abu Umar (7123) > Wakee' > Sufyaan al-Thawri > Ibn Zakwaan > al-A'raj
+
+Abu Bakr ibn Abu Shaibah > Ibn Numair (16119) & Abu Usaamah > Ubaidullah ibn Umar > Khubaib ibn Abd al-Rahman > Hafs ibn Aasim > Abu Hurairah > Prophet
+	Muhammad ibn Abdullah ibn Numair > Ibn Numair > Ubaidullah
+	Muhammad ibn al-Muthanna > Abd al-Wahhab (5129) > Ubaidullah
+
+Qutaibah ibn Sa'eed > Ya'qub ibn Abd al-Rahman > Suhail ibn Abu Salih (3584) > Abu Salih > Abu Hurairah
+
+Muhammad ibn Raafi' > Abd al-Razzaq al-San'aani > Ibn Juraij > Amr ibn Dinar (5948) > Ataa ibn Mina > Abu Hurairah
+
+Abu al-Tahir & Harmalah ibn Yahya > Ibn Wahb > Yunus (8372) > Ibn Shihab > Aamir ibn Sa'd (5781) > Abu Sa'eed al-Khudri > Prophet
+	Amr al-Naaqid > Ya'qub ibn Ibrahim ibn Sa'd > Ibrahim ibn Sa'd > Salih (3749) > Ibn Shihab
+	Haroon > Ibn Shihab
+	GJKK4ff (3) > Ibn Shihab
+				`;
+
+				
+			// Call the function to load JSON files when the script runs
+			loadJSONFiles().then(() => {
+				// Define a custom mode
+				createTextEditor();  
+				// Get the current URL
+				const urlParams = new URLSearchParams(window.location.search);
+
+				// Extract the 'id' parameter
+				const id = urlParams.get('id');
+
+				console.log(id); // Output: "83f6432a-f59f-444b-82fa-39f1fa5f60c8"
+				if (id) {
+						retrieveContent(id);
+				} else {
+						editor.setValue(defaultText); 
+						updateFunction(null, true);
+				}
+			}); 
+		});
+	
+
+		function confirmAndClearTextarea() {
+			var textarea = document.getElementById('chains');
+			var firstLine = textarea.value.split('\n')[0]; // Get the first line of the textarea
+			if(!firstLine.trim().toLowerCase().includes('tutorial')) {
+				// Ask for confirmation if the first line is not 'tutorial'
+				if(confirm('Are you sure you want to clear the text? This action cannot be undone.')) {
+					textarea.value = '';
+				}
+			} else {
+				// Clear the textarea without confirmation if the first line is 'tutorial'
+				textarea.value = '';
+			}
+		}
+	
+		function toggleMenu() {
+			var menu = document.getElementById('advancedOptions');
+			var button = document.querySelector('form button[type="button"]');
+			if(menu.style.display === 'none') {
+				menu.style.display = 'block';
+				button.textContent = 'Hide Advanced Options';
+			} else {
+				menu.style.display = 'none';
+				button.textContent = 'Show Advanced Options';
+			}
+		}
+
+		let stateRecord = {
+			nodes: null,
+			edges: null,
+			classifiedLevels: null,
+			coordinates: null,
+			gradeLevels: null,
+			nodeAttributes: null,
+		}
+		let editor;
+		let previousText = ""; 
+		var updateFunction = async function(event, doFit = false, forceUpdate=false) {
+			try {
+				event.preventDefault(); // Prevent the default form submission
+			} 
+			catch (err) {
+				
+			}
+			
+			const form = document.getElementById('graphForm');
+			const formData = new FormData(form);
+			const chainsContent = editor.getValue();
+			if (chainsContent === previousText && !forceUpdate) { 
+				return;
+			}  
+			previousText = chainsContent;
+			
+			// Get the checkbox value and convert it to true or false
+			const showMatn = formData.get('showMatn') ? true : false;
+			let object = null;
+			if(false) {
+				try {
+					object = text_to_object(chainsContent, showMatn);
+					document.getElementById('chainsErrorMessage').innerHTML = "";
+				} 
+				catch (err) {
+					document.getElementById('chainsErrorMessage').innerHTML = err.message;
+				}
+			} 
+			else {
+				object = text_to_object(chainsContent, showMatn);
+				document.getElementById('chainsErrorMessage').innerHTML = "";
+			}
+			
+			if(object.errors.length > 0) {
+				document.getElementById('chainsErrorMessage').innerHTML = "<p>" + object.errors.join("</p><p>") + "</p>";
+			} else {
+				document.getElementById('chainsErrorMessage').innerHTML = "";
+			}
+			const nodes = object.nodes;
+			const edges = object.edges;
+			let classifiedNarratorLevels;
+			if (event != null || true) { 
+				stateRecord.classifiedLevels = [
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+						[],
+					];
+				runNarratorRecognitionInBackground(nodes, edges, container.graph);
+			} 
+			else {
+				classifiedNarratorLevels = [
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+					[],
+				]
+			} 
+			
+			if (stateRecord.nodes != null && Math.abs(stateRecord.nodes.length - nodes.length) > 4) {
+				doFit = true;
+			} 
+			stateRecord.nodes = nodes;
+			stateRecord.edges = edges;
+			stateRecord.coordinates = object.coordinates;
+			stateRecord.parentsOfNode = object.parentsOfNode;
+			stateRecord.nodeAttributes = object.nodeAttributes;
+			
+			
+			let [nodeWidth, nodeLength] = parseDimensions(formData.get('narratorBoxShape'));
+			let [matnWidth, matnHeight] = parseDimensions(formData.get('matnBoxShape'));
+			if (true) {
+				getGraphCoordinates(nodes, edges, formData.get('direction'), parseFloat(formData.get('rank_separation')), parseFloat(formData.get('node_separation')), nodeWidth, nodeLength, matnWidth, matnHeight).then(output => {
+					let [coordinates, bendCoordinates] = output;
+					let positionArray = coordinates;
+					let xmlString = generateDiagramXml(nodes, edges, positionArray, bendCoordinates, formData.get('narratorBoxStyle'), formData.get('narratorBoxShape'), formData.get('compilerBoxStyle'), formData.get('compilerBoxShape'), formData.get('matnBoxStyle'), formData.get('matnBoxShape'), );
+					// console.log(xmlString);
+					loadGraph(xmlString);
+					if(doFit || (event && event.type === 'submit')) {
+						autoFitGraph(positionArray, formData.get('narratorBoxShape'));
+						firstRun = false;
+					} else if(firstRun) {
+						autoFitGraph(positionArray, formData.get('narratorBoxShape'));
+						firstRun = false;
+					}
+				}).catch(error => {
+					console.error("Error processing the graph:", error);
+				});
+			} 
+			else {
+				const graph = object_to_graph(nodes, edges, );
+				graph.on("stabilizationIterationsDone", function() {
+					let positions = graph.getPositions();
+					let positionArray = convertPositionsToArray(positions);
+					// console.log(positionArray);
+					positionArray = adjustLayout(positionArray, formData.get('direction'), parseInt(formData.get('rank_separation')), parseInt(formData.get('node_separation')), );
+					const xmlString = generateDiagramXml(nodes, edges, positionArray, formData.get('narratorBoxStyle'), formData.get('narratorBoxShape'), formData.get('compilerBoxStyle'), formData.get('compilerBoxShape'), formData.get('matnBoxStyle'), formData.get('matnBoxShape'), );
+					console.log(xmlString);
+					loadGraph(xmlString);
+					if(doFit || (event && event.type === 'submit')) {
+						autoFitGraph(positionArray, formData.get('narratorBoxShape'));
+					} else if(firstRun) {
+						autoFitGraph(positionArray, formData.get('narratorBoxShape'));
+						firstRun = false;
+					}
+				});
+			}
+		}
+		// document.getElementById('graphForm').onchange = 
+		
+		function toggleSection(sectionId, button) {
+				const section = document.getElementById(sectionId);
+				if (section.style.display === "none" || section.style.display === "") {
+						section.style.display = "block";
+						button.innerText = "Collapse Section";
+				} else {
+						section.style.display = "none";
+						button.innerText = "Expand Section";
+				}
+		}
+
+	 
+
+	</script>
+
+</body> 
+
+</html>
