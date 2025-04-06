@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+final_narrator_data_3.zip
+final_narrator_data_3.json.gz
+final_narrator_data_3.json
