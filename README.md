@@ -1,6 +1,6 @@
 # Sanadi
 
-An app to draw chain diagrams for hadith narrations.
+An app to draw chain diagrams for hadith narrations. See [sanadi.fussilat.com](https://sanadi.fussilat.com/)
 
 ## Functions:
 1. Draw diagram from user-inputted markup
@@ -9,11 +9,13 @@ An app to draw chain diagrams for hadith narrations.
 
 ## Example of user-input:
 
-Malik! > Nafi' > Abdullah ibn Umar > Prophet
+> Malik! > Nafi' > Abdullah ibn Umar > Prophet
+> 
+> Al-Tayalisi! > Juwairiyah > Nafi'
+> 
+> al-Humaidi! > Sufyan > Amr ibn Dinar > Ibn Umar
 
-Al-Tayalisi! > Juwairiyah > Nafi'
-
-al-Humaidi! > Sufyan > Amr ibn Dinar > Ibn Umar
+Go to the site to see more details about the syntax.
 
 ## An example diagram:
 ![image](https://github.com/user-attachments/assets/d837c14a-dfe5-4254-b4c9-e5d7c590518f)
